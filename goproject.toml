@@ -1,0 +1,11 @@
+name = "XGUserServer"
+version = "0.0.1"
+imageName = "xg_user_server"
+description = "A microservice that handles users"
+license = "MIT"
+authors = [
+    "Edson Manuel Carballo Vera <edsonmanuelcarballovera@gmail.com>",
+]
+maintainers = [
+    "Edson Manuel Carballo Vera <edsonmanuelcarballovera@gmail.com>"
+]

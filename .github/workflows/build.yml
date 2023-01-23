@@ -1,0 +1,78 @@
+name: Publish spec and build Docker image
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish_spec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout spec
+        uses: actions/checkout@v2
+
+      - name: Validate spec
+        uses: mpetrunic/swagger-cli-action@v1.0.0
+        with:
+          command: "validate api/UserServer.yaml"
+
+      - name: Build spec
+        uses: mpetrunic/swagger-cli-action@v1.0.0
+        with:
+          command: "bundle -o UserServer.yaml -t yaml api/UserServer.yaml"
+
+      - name: Publish spec
+        uses: Legion2/swagger-ui-action@v1
+        with:
+          output: specs
+          spec-file: UserServer.yaml
+
+      - name: Deploy on GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.EDSON_GITHUB_TOKEN }}
+          publish_dir: specs
+
+  build:
+    needs: publish_spec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.EDSON_DOCKERHUB_ID }}
+          password: ${{ secrets.EDSON_DOCKERHUB_TOKEN }}
+
+      - name: Configurar QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Configurar buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Obtener servion del servicio
+        uses: SebRollen/toml-action@v1.0.0
+        id: pVersion
+        with:
+          file: 'goproject.toml'
+          field: 'version'
+
+      - name: Obtener nombre de la imagen de Docker
+        uses: SebRollen/toml-action@v1.0.0
+        id: pImageName
+        with:
+          file: 'goproject.toml'
+          field: "imageName"
+
+      - name: Construir imagen
+        env:
+          tag: ${{ steps.pVersion.outputs.value }}
+          image_name: ${{ steps.pImageName.outputs.value }}
+        run: |
+          image="w3edd/$image_name"
+          tag=$image:$tag
+          docker buildx build \
+          --push \
+          --tag $tag \
+          --platform linux/386,linux/amd64 .
