@@ -18,22 +18,23 @@ jobs:
       - name: Build spec
         uses: mpetrunic/swagger-cli-action@v1.0.0
         with:
-          command: "bundle -o UserServer.json -t json api/UserServer.yaml"
+          command: "bundle -o UserServer.yaml -t yaml api/UserServer.yaml"
 
       - name: Setup Node
         uses: actions/setup-node@v3
 
       - name: YAML to HTML
-        run: |
-          npm install -g bootprint
-          npm install -g bootprint-openapi
-          bootprint openapi UserServer.json specs
-
+        id: swagger-ui-action
+        uses: pjoc-team/swagger-ui-action@v0.0.2
+        with:
+          dir: './'
+          pattern: '*.yaml'
+          debug: 'false'
 
       - name: Deploy on Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          folder: specs
+          folder: swagger-ui
           branch: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.EDSON_GITHUB_TOKEN }}
