@@ -30,6 +30,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           folder: specs
+          branch: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.EDSON_GITHUB_TOKEN }}
 
