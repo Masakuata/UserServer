@@ -26,6 +26,21 @@ func UserRoutes(group *gin.Engine) {
 		return
 	})
 
+	routerGroup.GET("", func(context *gin.Context) {
+		var user model.User
+		err := context.ShouldBindJSON(&user)
+		if err != nil {
+			context.Status(http.StatusNotAcceptable)
+			return
+		}
+
+		if model.Login(user.Email, user.Password) {
+			context.Status(http.StatusOK)
+		} else {
+			context.Status(http.StatusNotFound)
+		}
+		return
+	})
 }
 
 //func SessionRoutes(group *gin.Engine) {
