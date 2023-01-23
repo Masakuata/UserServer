@@ -18,15 +18,16 @@ jobs:
       - name: Build spec
         uses: mpetrunic/swagger-cli-action@v1.0.0
         with:
-          command: "bundle -o UserServer.yaml -t yaml api/UserServer.yaml"
+          command: "bundle -o UserServer.json -t json api/UserServer.yaml"
 
       - name: Setup Node
         uses: actions/setup-node@v3
 
       - name: YAML to HTML
         run: |
-          npm i swagger-convert-to-html
-          node SwaggerToHtml UserServer.yaml specs
+          npm install -g bootprint
+          npm install -g bootprint-openapi
+          bootprint openapi UserServer.json specs
 
 
       - name: Deploy on Github Pages
