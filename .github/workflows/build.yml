@@ -26,11 +26,12 @@ jobs:
           output: specs
           spec-file: UserServer.yaml
 
-      - name: Deploy on GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy on Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          github_token: ${{ secrets.EDSON_GITHUB_TOKEN }}
-          publish_dir: specs
+          folder: specs
+        env:
+          GITHUB_TOKEN: ${{ secrets.EDSON_GITHUB_TOKEN }}
 
   build:
     needs: publish_spec
