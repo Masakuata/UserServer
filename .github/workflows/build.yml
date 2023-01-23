@@ -31,8 +31,7 @@ jobs:
           mkdir specs
           cd swagger-to-html-standalone
           python swagger-to-html-standalone.py < ../UserServer.yaml > index.html
-          cd ..
-          mv swagger-to-html-standalone specs
+          mv * ../specs
 
       - name: Deploy on Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
