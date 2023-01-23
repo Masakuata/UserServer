@@ -20,21 +20,20 @@ jobs:
         with:
           command: "bundle -o UserServer.yaml -t yaml api/UserServer.yaml"
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Clone Swagger HTML gen
+        uses: GuillaumeFalourd/clone-github-repo-action@v2
+        with:
+          owner: 'tk42'
+          repository: 'swagger-to-html-standalone'
 
       - name: YAML to HTML
-        id: swagger-ui-action
-        uses: pjoc-team/swagger-ui-action@v0.0.2
-        with:
-          dir: './'
-          pattern: '*.yaml'
-          debug: 'false'
+        run: |
+          python swagger-to-html-standalone.py < UserServer.yaml > specs/doc.html
 
       - name: Deploy on Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          folder: swagger-ui
+          folder: specs
           branch: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.EDSON_GITHUB_TOKEN }}
