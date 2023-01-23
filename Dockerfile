@@ -14,6 +14,6 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certifi
 
 EXPOSE 42100
 
-WORKDIR /xgss
+WORKDIR /xgus
 
 ENTRYPOINT ["./xgus"]

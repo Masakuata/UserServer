@@ -1,5 +1,5 @@
 name = "XGUserServer"
-version = "0.0.1"
+version = "0.0.2"
 imageName = "xg_user_server"
 description = "A microservice that handles users"
 license = "MIT"
