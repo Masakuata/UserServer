@@ -20,11 +20,11 @@ jobs:
         with:
           command: "bundle -o UserServer.yaml -t yaml api/UserServer.yaml"
 
-      - name: Publish spec
-        uses: Legion2/swagger-ui-action@v1
-        with:
-          output: specs
-          spec-file: UserServer.yaml
+      - name: YAML to HTML
+        uses: actions/setup-node@v3
+        run: |
+          npm i swagger-to-html
+          swagger-to-html UserServer.yaml spec
 
       - name: Deploy on Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
