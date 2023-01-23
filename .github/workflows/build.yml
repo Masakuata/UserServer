@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir specs
           cd swagger-to-html-standalone
-          python swagger-to-html-standalone.py < UserServer.yaml > ../specs/doc.html
+          python swagger-to-html-standalone.py < ../UserServer.yaml > ../specs/doc.html
 
       - name: Deploy on Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
