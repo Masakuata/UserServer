@@ -20,8 +20,10 @@ jobs:
         with:
           command: "bundle -o UserServer.yaml -t yaml api/UserServer.yaml"
 
-      - name: YAML to HTML
+      - name: Setup Node
         uses: actions/setup-node@v3
+
+      - name: YAML to HTML
         run: |
           npm i swagger-to-html
           swagger-to-html UserServer.yaml spec
