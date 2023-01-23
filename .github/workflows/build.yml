@@ -28,7 +28,9 @@ jobs:
 
       - name: YAML to HTML
         run: |
-          python swagger-to-html-standalone.py < UserServer.yaml > specs/doc.html
+          mkdir specs
+          cd swagger-to-html-standalone
+          python swagger-to-html-standalone.py < UserServer.yaml > ../specs/doc.html
 
       - name: Deploy on Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
