@@ -1,168 +1,19 @@
+<!-- HTML for static distribution bundle build -->
 <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="main.css">
+<html lang="en">
+  <head>
     <meta charset="UTF-8">
-    <title>XGUserServer</title>
-                                                         </head>
-<body>
-<div class="container">
-    <h1>XGUserServer</h1>
-    <p class="sw-info">
-        
-        Version: <span class="sw-info-version">0.0.1</span>
-    </p>
-    <p><p>Go microservice that handles registered users</p>
-    </p>
-    
-    
-    <div id="sw-schemes" class="sw-default-value">
-        <span class="sw-default-value-header">Schemes:</span>
-        
-    </div>
-    
-        <h2 id="swagger--summary-no-tags">Summary</h2>
-        <table class="table table-bordered table-condensed swagger--summary">
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Operation</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                            <td class="swagger--summary-path" rowspan="1">
-                                <a href="#path--user">/user</a>
-                            </td>
-                        <td>
-                            <a href="#operation--user-post">POST</a>
-                        </td>
-                        <td>
-                            <p>Registers a new user</p>
-        
-                        </td>
-                    </tr>
-            </tbody>
-        </table>
-    
-    
-    
-    <h2>Paths</h2>
-    
-        
-        <span id="path--user"></span>
-            <div id="operation--user-post" class="swagger--panel-operation-post panel">
-                <div class="panel-heading">
-                    <div class="operation-summary">Registers a new user</div>
-                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/user</strong></h3>
-                </div>
-                <div class="panel-body">
-                    <section class="sw-operation-description">
-                        <p>Creates a new user on the system with the given information</p>
-            
-                    </section>
-            
-                    
-                    
-                        <section class="sw-responses">
-                    
-                            <dl>
-                                    <dt class="sw-response-201">
-                                        201 Created
-                                    
-                                    </dt>
-                                    <dd class="sw-response-201">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>The user has been registered</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-400">
-                                        400 Bad Request
-                                    
-                                    </dt>
-                                    <dd class="sw-response-400">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>The request is wrong or malformed</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-406">
-                                        406 Not Acceptable
-                                    
-                                    </dt>
-                                    <dd class="sw-response-406">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>The given information is not acceptable</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-409">
-                                        409 Conflict
-                                    
-                                    </dt>
-                                    <dd class="sw-response-409">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>The given email is already registered</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-500">
-                                        500 Internal Server Error
-                                    
-                                    </dt>
-                                    <dd class="sw-response-500">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>An internal error has occurred. Contact maintainer</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                            </dl>
-                        </section>
-                </div>
-            </div>
-    
-     
-    
-                       
-    
-</div>
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+  </head>
 
-</body>
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="./swagger-ui-bundle.js" charset="UTF-8"> </script>
+    <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+    <script src="./swagger-initializer.js" charset="UTF-8"> </script>
+  </body>
 </html>
