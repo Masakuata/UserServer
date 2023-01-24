@@ -14,8 +14,8 @@ func main() {
 		engine = gin.Default()
 		gin.SetMode(gin.DebugMode)
 	} else {
-		engine = gin.New()
 		gin.SetMode(gin.ReleaseMode)
+		engine = gin.New()
 	}
 
 	engine.GET("/", func(context *gin.Context) {
