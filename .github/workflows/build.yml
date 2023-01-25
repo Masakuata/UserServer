@@ -92,6 +92,6 @@ jobs:
           access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
           secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           account_id: ${{ secrets.AWS_ID }}
-          repo: xatal-dev
-          region: us-east-1
+          repo: xatal-dp
+          region: us-east-2
           tags: ${{ steps.pVersion.outputs.value }}
