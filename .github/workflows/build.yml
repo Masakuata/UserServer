@@ -93,9 +93,8 @@ jobs:
           --tag $tag \
           --platform linux/386,linux/amd64 .
           
-          cd ~/.aws
-          echo "[default]\naws_access_key_id = $access_key\naws_secret_access_key = $secret_key" > credentials
-          echo "[default]\nregion = us-east-1" > config
+          echo "[default]\naws_access_key_id = $access_key\naws_secret_access_key = $secret_key" > ~/.aws/credentials
+          echo "[default]\nregion = us-east-1" > ~/.aws/config
           
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n1a4b8s3
           
