@@ -41,7 +41,38 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.EDSON_GITHUB_TOKEN }}
 
-  build:
+  push_to_ECR:
+    needs: publish_spec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Obtener version del servicio
+        uses: SebRollen/toml-action@v1.0.0
+        id: pVersion
+        with:
+          file: 'goproject.toml'
+          field: 'version'
+
+      - name: Obtener nombre de la imagen de Docker
+        uses: SebRollen/toml-action@v1.0.0
+        id: pImageName
+        with:
+          file: 'goproject.toml'
+          field: "imageName"
+
+      - name: AWS ECR
+        uses: kciter/aws-ecr-action@v4
+        with:
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
+          secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          account_id: ${{ secrets.AWS_ID }}
+          repo: xatal-dp
+          region: us-east-2
+          tags: ${{ steps.pImageName.outputs.value }}:${{ steps.pVersion.outputs.value }}
+
+  push_to_dockerhub:
     needs: publish_spec
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +91,7 @@ jobs:
       - name: Configurar buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Obtener servion del servicio
+      - name: Obtener version del servicio
         uses: SebRollen/toml-action@v1.0.0
         id: pVersion
         with:
@@ -85,13 +116,3 @@ jobs:
           --push \
           --tag $tag \
           --platform linux/386,linux/amd64 .
-
-      - name: AWS ECR
-        uses: kciter/aws-ecr-action@v4
-        with:
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
-          secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          account_id: ${{ secrets.AWS_ID }}
-          repo: xatal-dp
-          region: us-east-2
-          tags: ${{ steps.pVersion.outputs.value }}
