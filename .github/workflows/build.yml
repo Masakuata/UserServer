@@ -74,10 +74,12 @@ jobs:
           file: 'goproject.toml'
           field: "imageName"
 
-      - name: Instalar AWS  CLI
-        uses: unfor19/install-aws-cli-action@v1
-        with:
-          version: 2
+      - name: AWS CLI
+        uses: ItsKarma/aws-cli@v1.70.0
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
 
       - name: Construir imagen
         env:
@@ -92,9 +94,6 @@ jobs:
           --push \
           --tag $tag \
           --platform linux/386,linux/amd64 .
-          
-          echo "[default]\naws_access_key_id = $access_key\naws_secret_access_key = $secret_key" > ~/.aws/credentials
-          echo "[default]\nregion = us-east-1" > ~/.aws/config
           
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n1a4b8s3
           
