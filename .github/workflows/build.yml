@@ -70,7 +70,7 @@ jobs:
           account_id: ${{ secrets.AWS_ID }}
           repo: xatal-dp
           region: us-east-2
-          tags: ${{ steps.pImageName.outputs.value }}:${{ steps.pVersion.outputs.value }}
+          tags: ${{ steps.pVersion.outputs.value }}
 
   push_to_dockerhub:
     needs: publish_spec
