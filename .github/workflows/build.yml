@@ -74,12 +74,6 @@ jobs:
           file: 'goproject.toml'
           field: "imageName"
 
-      - name: AWS cli install action
-        uses: chrislennon/action-aws-cli@1.1
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-
       - name: Construir imagen
         env:
           tag: ${{ steps.pVersion.outputs.value }}
@@ -91,9 +85,13 @@ jobs:
           --push \
           --tag $tag \
           --platform linux/386,linux/amd64 .
-          
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n1a4b8s3
-          
-          docker tag $image:$tag public.ecr.aws/n1a4b8s3/$image:$tag
-          
-          docker push public.ecr.aws/n1a4b8s3/$image:$tag
+
+      - name: AWS ECR
+        uses: kciter/aws-ecr-action@v4
+        with:
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
+          secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          account_id: ${{ secrets.AWS_ID }}
+          repo: xatal-dev
+          region: us-east-1
+          tags: ${{ steps.pVersion.outputs.value }}
