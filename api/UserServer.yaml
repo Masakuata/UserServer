@@ -70,10 +70,11 @@ paths:
           description: The given email is already registered
         500:
           description: An internal error has occurred. Contact maintainer
-    get:
+  /user/login:
+    post:
       tags:
         - User
-      summary: Login
+      summary: User autenticates against the service
       description: Tries to log in with an email and password
       requestBody:
         content:

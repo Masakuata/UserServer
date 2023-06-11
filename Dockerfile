@@ -12,7 +12,7 @@ COPY --from=builder /xgus/xgus /xgus/xgus
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
-EXPOSE 42100
+EXPOSE 42102
 
 WORKDIR /xgus
 

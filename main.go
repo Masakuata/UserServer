@@ -22,7 +22,7 @@ func main() {
 		context.Status(http.StatusOK)
 	})
 	routes.UserRoutes(engine)
-	err := engine.Run("0.0.0.0:42100")
+	err := engine.Run("0.0.0.0:42102")
 	if err != nil {
 		return
 	}

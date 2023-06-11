@@ -26,7 +26,7 @@ func UserRoutes(group *gin.Engine) {
 		return
 	})
 
-	routerGroup.GET("", func(context *gin.Context) {
+	routerGroup.POST("/login", func(context *gin.Context) {
 		var user model.User
 		err := context.ShouldBindJSON(&user)
 		if err != nil {
